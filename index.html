@@ -1,4 +1,8 @@
+from pathlib import Path
 
+# Save updated content with BSC wallet address explanation
+updated_html_path = Path("/mnt/data/index_with_bsc_explanation.html")
+updated_html_path.write_text("""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,12 +44,29 @@
       color: gray;
       margin-top: 0.5rem;
     }
+    .help {
+      background: #eef5fb;
+      border-left: 4px solid #00c2a8;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body>
   <div class="card">
     <h2>💸 Viralium Airdrop</h2>
     <p>Register now and receive <strong>5,000 VIR tokens</strong>! Share your referral link and earn more.</p>
+
+    <div class="help">
+      <strong>What is a BSC Wallet Address?</strong><br>
+      It's your wallet address on the Binance Smart Chain (BSC), used to receive your airdrop.<br><br>
+      ✅ It looks like this: <code>0x123abc...456def</code><br>
+      ✅ You can find it in MetaMask (or another wallet) when connected to the Binance Smart Chain network.<br>
+      ✅ Just copy the address at the top of your wallet when BSC is selected.
+    </div>
+
     <form id="airdropForm">
       <input type="text" id="wallet" placeholder="BSC Wallet Address" required />
       <input type="text" id="telegram" placeholder="Telegram Username (optional)" />
@@ -54,6 +75,7 @@
       <button type="submit">Claim Tokens</button>
       <p class="small">Tokens will be distributed at the end of the airdrop campaign.</p>
     </form>
+
     <div id="linkBox" style="display:none">
       <p>✅ Registered! Here is your referral link:</p>
       <input type="text" id="referralLink" readonly />
@@ -81,7 +103,8 @@
         return;
       }
 
-      fetch("https://script.google.com/macros/s/AKfycbwaU17-Ni27xYIL997qwUeKvQNcvNOySXkaZOH6QamqJwd-aUdh-bGUh2VhpH19DFIh/exec?wallet=" + encodeURIComponent(wallet) +
+      fetch("https://script.google.com/macros/s/AKfycbwaU17-Ni27xYIL997qwUeKvQNcvNOySXkaZOH6QamqJwd-aUdh-bGUh2VhpH19DFIh/exec" +
+            "?wallet=" + encodeURIComponent(wallet) +
             "&telegram=" + encodeURIComponent(telegram) +
             "&twitter=" + encodeURIComponent(twitter) +
             "&ref=" + encodeURIComponent(ref), { method: "GET", mode: "no-cors" });
@@ -94,3 +117,6 @@
   </script>
 </body>
 </html>
+""", encoding="utf-8")
+
+updated_html_path.name
